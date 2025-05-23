@@ -25,11 +25,11 @@ connectDB()
 // Middleware
 app.use(helmet());
 app.use(
-  cors({
-    origin: ["http://localhost:5173", "https:.onrender.com"],
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    credentials: true,
-  })
+    cors({
+        origin: ["http://localhost:5173", "https://pms-p6lo.onrender.com"],
+        methods: ["GET", "POST", "PUT", "DELETE"],
+        credentials: true,
+    })
 );
 app.use(express.json());
 app.use(morgan('dev'));
@@ -40,6 +40,7 @@ app.get('/', (req, res) => {
     res.json({ message: 'API is running' });
 });
 
+
 // API Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
@@ -49,12 +50,10 @@ app.use('/api/tasks', taskRoutes);
 // Serve frontend in production
 const __dirname = path.resolve();
 
-app.use(express.static(path.join(__dirname, '/client/dist')));
-
-app.get('*', (req, res) => {
-    res.sendFile(path.resolve(__dirname, 'client', 'dist', 'index.html'));
+app.use(express.static(path.join(__dirname, "/client/dist")));
+app.get("/*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "client", "dist", "index.html"));
 });
-
 
 // Error handler middleware
 app.use(errorHandler);
