@@ -35,11 +35,6 @@ app.use(express.json());
 app.use(morgan('dev'));
 app.use(rateLimit);
 
-// Health check route
-app.get('/', (req, res) => {
-    res.json({ message: 'API is running' });
-});
-
 
 // API Routes
 app.use('/api/auth', authRoutes);
